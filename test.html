@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logo Carousel</title>
+  <style>
+    /* CSS styles */
+    .logo-carousel {
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+      animation: slideCarousel 10s linear infinite;
+    }
+
+    .logo-carousel img {
+      max-width: 100px;
+      height: auto;
+      margin: 0 20px;
+    }
+
+    @keyframes slideCarousel {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-33.333%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo-carousel">
+    <img src="logo1.png" alt="Logo 1">
+    <img src="logo2.png" alt="Logo 2">
+    <img src="logo3.png" alt="Logo 3">
+    <img src="logo4.png" alt="Logo 4">
+    <img src="logo5.png" alt="Logo 5">
+    <!-- Add more logo images as needed -->
+  </div>
+
+  <script>
+    // JavaScript code
+    const carousel = document.querySelector('.logo-carousel');
+    const carouselImages = carousel.querySelectorAll('img');
+    const carouselImageCount = carouselImages.length;
+    const carouselVisibleCount = 3;
+    const carouselAnimationDuration = 10; // in seconds
+
+    carousel.style.width = `${(carouselImageCount / carouselVisibleCount) * 100}%`;
+
+    setInterval(() => {
+      carousel.style.transition = 'transform 0.5s ease-in-out';
+      carousel.style.transform = `translateX(-${100 / carouselVisibleCount}%)`;
+
+      setTimeout(() => {
+        carousel.style.transition = 'none';
+        carousel.style.transform = 'translateX(0%)';
+        for (let i = 0; i < carouselVisibleCount; i++) {
+          const firstImage = carouselImages[i];
+          carousel.appendChild(firstImage);
+        }
+      }, 500);
+    }, carouselAnimationDuration * 1000);
+  </script>
+</body>
+</html>
